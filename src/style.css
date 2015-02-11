@@ -1,0 +1,132 @@
+@font-face {
+    font-family: 'visitor';
+    src: url('font/visitor.eot');
+    src: url('font/visitor.eot?#iefix') format('embedded-opentype'),
+         url('font/visitor.woff') format('woff'),
+         url('font/visitor.ttf') format('truetype'),
+         url('font/visitor.svg#visitor_tt2_brkregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BellGothic';
+    src: url('font/BellGothic.eot');
+    src: url('font/BellGothic.eot?#iefix') format('embedded-opentype'),
+         url('font/BellGothic.woff') format('woff'),
+         url('font/BellGothic.ttf') format('truetype'),
+         url('font/BellGothic.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background: url("images/bg4.png") #000;
+    font-family: 'Open Sans', sans-serif;
+}
+
+#game {
+    background: #2b3036;
+    cursor: none;
+}
+
+a {
+    color: #ffdf48;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.login-page-wrap {
+    border: 5px solid #ffdf48;
+    background: #2b3036;
+    width: 440px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -220px;
+    margin-top: -250px;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 4px 80px rgba(0, 0, 0, 0.3);
+}
+
+.dealer-logo {
+    margin-top: 40px;
+    background: url("images/logo.png") no-repeat top center;
+    width: 100%;
+    height: 80px;
+}
+
+.help-links {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 11px;
+}
+
+form {
+    padding: 40px 70px;
+}
+
+label {
+    line-height: 28px;
+    margin-top: 4px;
+    display:block;
+    float: left;
+    width: 75px;
+    height: 30px;
+    padding: 0 10px;
+    border: 3px solid #555;
+    border-right: none;
+    border-radius:3px 0 0 3px;
+    font-size: 14px;
+}
+
+input {
+    border: 3px solid #555;
+    border-radius: 0 3px 3px 0;
+    padding: 0 7px;
+    width: 180px;
+    color: #333;
+    outline: none;
+    margin: 4px 0;
+    height: 30px;
+    transition: border 0.2s;
+}
+
+input:focus {
+    border-color: #ffdf48;
+}
+
+.btn {
+	border: none;
+    border-bottom: 2px solid #ce9e00;
+    border-radius: 3px;
+    box-shadow: 0 3px 10px #252729;
+	margin: 0 auto;
+	padding: 15px 50px;
+	display: block;
+    cursor: pointer;
+	color: #2b3036;
+	background: #ffdf48;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 800;
+	outline: none;
+    height: auto;
+	transition: none;
+}
+
+.btn:hover {
+    background: #f5e460;
+}
+
+.btn:active {
+    background: #ffd752;
+    margin-top: 22px;
+    border-bottom: 0px;
+	box-shadow: inset 0 1px 5px #ce9e00, 0 3px 10px #252729;
+}
