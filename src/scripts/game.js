@@ -1,6 +1,8 @@
 window.addEventListener('load', gameSetup, false);
 
 function gameSetup() {
+    scoreboardElement = document.getElementById('scores');
+    scoreboardElement.hidden = true;
     cvs = document.getElementById('game');
     cvsCenter = new Point(this.cvs.width / 2, this.cvs.height / 2);
     var ctx = cvs.getContext("2d");
@@ -45,6 +47,7 @@ var Logic = {
     },
 
     endGame: function() {
+        Leaderboard.showScores();
         console.log("Score of", Logic.score);
     }
 };
