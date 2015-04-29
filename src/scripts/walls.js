@@ -1,6 +1,6 @@
 function Walls () {
 	this.counter = 0;
-	this.currentLength = 50;
+	this.currentLength = 0;
 	this.growLength = true;
 	this.currentStep = 30;
 	this.heightIncreaseInterval = 50;    // fudge
@@ -26,13 +26,13 @@ Walls.prototype.setColor = function (color) {
 
 Walls.prototype.update = function (time) {
 
-    if(this.growLength && this.currentLength < 200) {
+    if(this.growLength && this.currentLength < 150) {
         this.currentLength += 0.7 * time;
     } else {
         this.growLength = false;
     }
 
-    if(!this.growLength && this.currentLength > 100) {
+    if(!this.growLength && this.currentLength > 50) {
         this.currentLength -= 0.7 * time;
     } else {
         this.growLength = true;
@@ -156,13 +156,13 @@ Walls.prototype.draw = function (ctx) {
 
     ctx.fillStyle = "#FFDB00";
     if (player.gameOver) {
-        ctx.font = "75px visitor";
-        ctx.fillText("GAME OVER", 20, 200);
+        ctx.font = "52px visitor";
+        ctx.fillText("GAME OVER", 20, 100);
         ctx.fillStyle = "#fff";
-        ctx.font = "50px visitor";
-        ctx.fillText("Score: " + player.score, 20, 250);
+        ctx.font = "38px visitor";
+        ctx.fillText("Score: " + player.score, 20, 130);
         ctx.font = "20px visitor";
-        ctx.fillText("Press r to replay", 20, 280);
+        ctx.fillText("Press r to replay", 20, 160);
     } else {
         ctx.font = "16px visitor";
         ctx.fillStyle = "#fff";

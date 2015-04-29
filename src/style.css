@@ -21,15 +21,27 @@
 }
 
 body {
-    background: #000;
+    background: #111;
     font-family: 'Open Sans', sans-serif;
     margin: 0;
     padding: 0;
+    text-align: center;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+h1 {
+    color: #ffdf48;
+    font-family: 'visitor', monospace;
+    font-size: 34px;
 }
 
 #game {
     background: #2b3036;
     cursor: none;
+    border: 5px solid #ffdf48;
+    border-radius: 3px;
+    border-bottom-width: 20px;
 }
 
 a {

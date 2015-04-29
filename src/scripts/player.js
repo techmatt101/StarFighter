@@ -1,10 +1,10 @@
 var player = {
     x: 130,
-    y: 420,
+    y: 300,
     vy: 0,
     speed: 10,
-    width: 64,
-    height: 40,
+    width: 48,
+    height: 30,
     canShoot: true,
     coolDown: 700,
     lives: 3,
