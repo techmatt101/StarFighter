@@ -19,11 +19,11 @@ var Input = {
                 Input.mX = -motion.accelerationIncludingGravity.x * 30 + cvs.width / 2;
             }, false);
 
-            window.addEventListener('touchstart', function (e) {
+            cvs.addEventListener('touchstart', function (e) {
                 Input.onDown(0);
             }, false);
 
-            window.addEventListener('touchend', function (e) {
+            cvs.addEventListener('touchend', function (e) {
                 Input.onUp(0);
             }, false);
         } else {
@@ -36,11 +36,11 @@ var Input = {
                 Input.onDown(e.keyCode);
             }, false);
 
-            window.addEventListener('mousedown', function (e) {
+            cvs.addEventListener('mousedown', function (e) {
                 Input.onDown(e.button);
             }, false);
 
-            window.addEventListener('mouseup', function (e) {
+            cvs.addEventListener('mouseup', function (e) {
                 Input.onUp(e.button);
             }, false);
 

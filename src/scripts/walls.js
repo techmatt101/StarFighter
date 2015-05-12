@@ -1,53 +1,51 @@
-function Walls () {
-	this.counter = 0;
-	this.currentLength = 0;
-	this.growLength = true;
-	this.currentStep = 30;
-	this.heightIncreaseInterval = 50;    // fudge
-	this.current = [
-		{
-			x: 0,
-			y: -20,
-			width: 0,
-			height: 20,
-			color: "#000"
-		}
-	];
-	this.separation = 20;                //fudge
-	this.height = 20;
-	this.color = 5;
-	this.parallax = 1;
-	this.play = true;
+function Walls() {
+    this.counter = 0;
+    this.currentLength = 0;
+    this.growLength = true;
+    this.currentStep = 30;
+    this.heightIncreaseInterval = 50;    // fudge
+    this.current = [{
+        x: 0,
+        y: -20,
+        width: 0,
+        height: 20,
+        color: "#000"
+    }];
+    this.separation = 20;                //fudge
+    this.height = 20;
+    this.color = 5;
+    this.parallax = 1;
+    this.play = true;
 }
 
-Walls.prototype.setColor = function (color) {
+Walls.prototype.setColor = function(color) {
     this.color = color;
 };
 
-Walls.prototype.update = function (time) {
+Walls.prototype.update = function(time) {
 
-    if(this.growLength && this.currentLength < 150) {
+    if (this.growLength && this.currentLength < 150) {
         this.currentLength += 0.7 * time;
     } else {
         this.growLength = false;
     }
 
-    if(!this.growLength && this.currentLength > 50) {
+    if (!this.growLength && this.currentLength > 50) {
         this.currentLength -= 0.7 * time;
     } else {
         this.growLength = true;
     }
 
-    if (player.gameOver && Input.isDown(Input.Restart)) {
+    if (Logic.gameOver && (Input.isDown(Input.click) || Input.isDown(Input.space) || Input.isDown(Input.Restart))) {
         var self = this;
         this.play = false;
-        player.gameOver = false;
+        Logic.startGame();
         Logic.difficulty = -2000;
         for (var i = 0; i < Logic.enemies.length; i++) {
             GameLoop.remove(Logic.enemies[i]);
             Logic.enemies.splice(i, 1);
         }
-        setTimeout(function () {
+        setTimeout(function() {
             self.play = true;
             self.current = [
                 {
@@ -114,8 +112,8 @@ Walls.prototype.update = function (time) {
             }
 
             var blockColor
-            if(Logic.score > 10000 && this.color == 5) {
-                blockColor = '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+            if (Logic.score > 10000 && this.color == 5) {
+                blockColor = '#' + (Math.random() * 0xFFFFFF << 0).toString(16);
             } else {
                 var hex2 = (~~(Math.random() * 9) + 0).toString();
                 blockColor = "#" + this.color + hex2 + this.color + hex2 + this.color + hex2;
@@ -139,7 +137,7 @@ Walls.prototype.update = function (time) {
     }
 };
 
-Walls.prototype.draw = function (ctx) {
+Walls.prototype.draw = function(ctx) {
     // draw every wall in the array
     for (var i = 0; i < this.current.length; i++) {
         var block = this.current[i];
@@ -155,7 +153,13 @@ Walls.prototype.draw = function (ctx) {
     }
 
     ctx.fillStyle = "#FFDB00";
-    if (player.gameOver) {
+    if (Logic.gameStarted) {
+        ctx.fillStyle = "#fff";
+        ctx.font = "38px visitor";
+        ctx.fillText("Leaderboard", 20, 130);
+        ctx.font = "20px visitor";
+        ctx.fillText("Click to play", 20, 160);
+    } else if (Logic.gameOver) {
         ctx.font = "52px visitor";
         ctx.fillText("GAME OVER", 20, 100);
         ctx.fillStyle = "#fff";

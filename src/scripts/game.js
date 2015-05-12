@@ -1,16 +1,14 @@
 window.addEventListener('load', gameSetup, false);
 
 function gameSetup() {
-    scoreboardElement = document.getElementById('scores');
-    scoreboardElement.hidden = true;
     cvs = document.getElementById('game');
     cvsCenter = new Point(this.cvs.width / 2, this.cvs.height / 2);
     var ctx = cvs.getContext("2d");
 
     Input.init();
     GameLoop.start(ctx);
-    GameLoop.add(player);
     Logic.init();
+    Logic.endGame();
 }
 
 var Logic = {
@@ -20,6 +18,8 @@ var Logic = {
     enemies: [],
     difficulty: 40,
     score: 0,
+    gameStarted : true,
+    gameOver: true,
 
     init: function () {
         var img = new Image();
@@ -33,7 +33,7 @@ var Logic = {
         GameLoop.addBG(bgWalls);
         setTimeout(this.Spawner, 1000);
         setInterval(function () {
-            if(!player.gameOver)
+            if(!Logic.gameOver)
                 Logic.score += 10;
         }, 200);
     },
@@ -46,8 +46,16 @@ var Logic = {
         setTimeout(Logic.Spawner, ranTime);
     },
 
+    startGame: function() {
+        Logic.gameOver = false;
+        Leaderboard.hide();
+        this.gameStarted = false;
+    },
+
     endGame: function() {
-        Leaderboard.showScores();
-        console.log("Score of", Logic.score);
+        Logic.gameOver = true;
+        Leaderboard.updateScore(Logic.score, function() {
+            Leaderboard.showScores();
+        });
     }
 };

@@ -1,23 +1,22 @@
 var player = {
     x: 130,
     y: 300,
-    vy: 0,
+    vy: 5,
     speed: 10,
     width: 48,
     height: 30,
     canShoot: true,
     coolDown: 700,
-    lives: 3,
+    lives: 2,
     invincible: false,
     drawable: true,
     flash: null,
-    gameOver: false,
     score: 0,
     smoothing: 1.2,
 
     reset: function () {
         this.score = 0;
-        this.lives = 3;
+        this.lives = 2;
         this.coolDown = 700;
         this.speed = 10;
         this.vy = 0;
@@ -89,7 +88,6 @@ var player = {
             if (this.lives <= 0) {
                 this.vy = 5;
                 GameLoop.remove(this);
-                this.gameOver = true;
                 this.score = Logic.score;
                 Logic.endGame();
             }
