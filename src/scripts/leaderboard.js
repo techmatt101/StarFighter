@@ -2,6 +2,7 @@ var scoreboardElement;
 var loginBtn;
 var signedIn = false;
 var userId = '';
+var leaderboardId = '5551aedcb43ac7697b9a4894';
 
 window.addEventListener('load', function() {
     loginBtn = document.getElementById('login');
@@ -52,12 +53,12 @@ var Leaderboard = {
     },
 
     getScores: function(callback) {
-        JSONP.get('http://localhost:3000/leaderboards/55373b114481f0f4892f2083/scores', {}, callback);
+        JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/scores', {}, callback);
     },
 
     submitScore: function(score, callback) {
         if(!userId) return callback();
-        JSONP.get('http://localhost:3000/leaderboards/55373b114481f0f4892f2083/players/' + userId + '/submit', { score: score }, callback);
+        JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/players/' + userId + '/submit', { score: score }, callback);
     },
 
     renderScores: function(scores) {
