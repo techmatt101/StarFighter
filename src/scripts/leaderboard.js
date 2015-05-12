@@ -10,17 +10,17 @@ window.addEventListener('load', function() {
     scoreboardElement.hidden = true;
 
     var tokenData = {};
-    JSONP.get('http://localhost:3000/users/tokens/generate', {}, function(data) {
+    JSONP.get('http://the-game-grid.com:3002/users/tokens/generate', {}, function(data) {
         tokenData = data.response;
     });
 
     loginBtn.addEventListener('click', function() {
         if(signedIn) return;
         loginPopup(tokenData.url, function() {
-            JSONP.get('http://localhost:3000/users/tokens/' + tokenData.token, {}, function(data) {
+            JSONP.get('http://the-game-grid.com:3002/users/tokens/' + tokenData.token, {}, function(data) {
                 if (data.success && data.response.success) {
                     userId = data.response.user_id; //TODO: store in local storage
-                    JSONP.get('http://localhost:3000/users/' + userId, { }, function(data) {
+                    JSONP.get('http://the-game-grid.com:3002/users/' + userId, { }, function(data) {
                         signedIn = true;
                         loginBtn.textContent = 'Hello ' + data.response.username;
                     });
