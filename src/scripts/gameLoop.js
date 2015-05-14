@@ -7,6 +7,7 @@ var GameLoop = new function () {
 
     this.start = function (ctx) {
         this.ctx = ctx;
+        this.lastGameLoopFrame = new Date().getTime();
         window.requestAnimationFrame(self.loop);
     };
 
@@ -29,9 +30,6 @@ var GameLoop = new function () {
         window.requestAnimationFrame(self.loop);
         var now = new Date().getTime(),
             dt = (now - self.lastGameLoopFrame) / 100;
-        /* Prevent fast-forwarding by limiting the length of a single frame. */
-        if (dt > 1)
-            dt = 1;
 
         //UPDATE
         for (var i = 0; i < self.objects.length; i++) {
@@ -48,7 +46,6 @@ var GameLoop = new function () {
         for (var i = 0; i < self.bgObjects.length; i++) {
             self.bgObjects[i].draw(self.ctx);
         }
-
 
         for (var i = self.objects.length - 1; i >= 0; i--) {
             self.objects[i].draw(self.ctx);

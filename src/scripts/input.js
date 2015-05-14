@@ -14,7 +14,7 @@ var Input = {
 
 
     init: function () {
-        if (mobileAndTabletcheck()) {
+        if (mobileAndTabletCheck()) {
             window.addEventListener('devicemotion', function(motion) {
                 Input.mX = -motion.accelerationIncludingGravity.x * 30 + cvs.width / 2;
             }, false);

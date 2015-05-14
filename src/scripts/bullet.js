@@ -1,10 +1,9 @@
 function Bullet (x, y) {
-    Box.call(this, 0, 0, 10, 20);
+    Box.call(this, x, y, 10, 20);
+    GameLoop.add(this);
 
-	this.speed = 25;
-	this.x = x - this.width / 2;
-	this.y = y;
-	GameLoop.add(this);
+    this.speed = 40;
+    this.x = x - this.width / 2;
 }
 
 Bullet.prototype = Object.create(Box.prototype);
@@ -17,8 +16,8 @@ Bullet.prototype.update = function (time) {
     }
 
     // loop through walls that we need to do detection
-    for (var i = 0; i < Logic.wall.current.length; i++) {
-        var wall = Logic.wall.current[i];
+    for (var i = 0; i < Game.walls.current.length; i++) {
+        var wall = Game.walls.current[i];
         if (this.y < wall.y + wall.height && this.y + this.height > wall.y) {
             if (this.x < wall.width || this.x > (cvs.width - this.width - (wall.x - wall.width))) {
                 GameLoop.remove(this);
@@ -26,16 +25,15 @@ Bullet.prototype.update = function (time) {
         }
     }
 
-    for (var i = 0; i < Logic.enemies.length; i++) {
-        if (this.bounding(Logic.enemies[i])) {
-            GameLoop.remove(Logic.enemies[i]);
+    for (var i = 0; i < Game.enemies.length; i++) {
+        if (this.bounding(Game.enemies[i])) {
+            GameLoop.remove(Game.enemies[i]);
             GameLoop.remove(this);
             new Explosion(this.x, this.y);
-            Logic.enemies.splice(i, 1);
-            Logic.score += 100;
+            Game.enemies.splice(i, 1);
+            Game.score += 100;
         }
     }
-
 };
 
 Bullet.prototype.draw = function (ctx) {

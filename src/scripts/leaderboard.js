@@ -14,20 +14,30 @@ window.addEventListener('load', function() {
         tokenData = data.response;
     });
 
+    var userIdData = localStorage.getItem('userId');
+    if (userIdData) {
+        updateUser(userIdData);
+    }
+
     loginBtn.addEventListener('click', function() {
-        if(signedIn) return;
+        if (signedIn) return;
         loginPopup(tokenData.url, function() {
             JSONP.get('http://the-game-grid.com:3002/users/tokens/' + tokenData.token, {}, function(data) {
                 if (data.success && data.response.success) {
-                    userId = data.response.user_id; //TODO: store in local storage
-                    JSONP.get('http://the-game-grid.com:3002/users/' + userId, { }, function(data) {
-                        signedIn = true;
-                        loginBtn.textContent = 'Hello ' + data.response.username;
-                    });
+                    localStorage.setItem('userId', data.response.user_id);
+                    updateUser(data.response.user_id);
                 }
             });
         });
     });
+
+    function updateUser(userIdData) {
+        userId = userIdData;
+        JSONP.get('http://the-game-grid.com:3002/users/' + userId, {}, function(data) {
+            signedIn = true;
+            loginBtn.textContent = 'Hello ' + data.response.username;
+        });
+    }
 });
 
 var Leaderboard = {
@@ -53,11 +63,15 @@ var Leaderboard = {
     },
 
     getScores: function(callback) {
-        JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/scores', {}, callback);
+        if (userId != '') {
+            JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/scores', { player_id: userId, show_player: true }, callback);
+        } else {
+            JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/scores', {}, callback);
+        }
     },
 
     submitScore: function(score, callback) {
-        if(!userId) return callback();
+        if (!userId) return callback();
         JSONP.get('http://the-game-grid.com:3002/leaderboards/' + leaderboardId + '/players/' + userId + '/submit', { score: score }, callback);
     },
 
@@ -66,7 +80,7 @@ var Leaderboard = {
         var length = Math.min(scores.length, 10);
         for (var i = 0; i < length; i++) {
             var score = scores[i];
-            html += '<li>' + score.position + '. ' + score.username + ' <span class="score">' + score.score + '</span></li>';
+            html += '<li style="' + (score.is_users_score ? 'color: #fff' : '')  + '">' + score.position + '. <span class="username">' + score.username + '</span> <span class="score">' + score.score + '</span></li>';
         }
         scoreboardElement.innerHTML = html;
     }

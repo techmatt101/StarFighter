@@ -23,7 +23,7 @@ Explosion.prototype.update = function (time) {
     for (var i = 0; i < len; i++) {
         this.partials[i].x += this.partials[i].vx * time;
         this.partials[i].y += this.partials[i].vy * time;
-        this.partials[i].y += player.vy;
+        this.partials[i].y += Game.camera.y;
     }
     this.alpha -= 0.1 * time;
     if (this.alpha <= 0.7) {

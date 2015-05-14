@@ -149,13 +149,14 @@ input:focus {
 
 #scoreboard {
     position: absolute;
-    top: 250px;
+    top: 215px;
     color: #ffdf48;
     font-family: 'visitor' monospace;
     font-size: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 280px
+    width: 280px;
+    pointer-events: none;
 }
 
 #scores {
@@ -166,6 +167,14 @@ input:focus {
 
 .score {
     float: right;
+}
+
+.username {
+    width: 60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
 }
 
 #login {
