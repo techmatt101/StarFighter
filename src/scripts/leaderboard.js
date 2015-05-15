@@ -24,7 +24,9 @@ window.addEventListener('load', function() {
         loginPopup(tokenData.url, function() {
             JSONP.get('http://the-game-grid.com:3002/users/tokens/' + tokenData.token, {}, function(data) {
                 if (data.success && data.response.success) {
-                    localStorage.setItem('userId', data.response.user_id);
+                    if(location.hash !== '#dev') {
+                        localStorage.setItem('userId', data.response.user_id);
+                    }
                     updateUser(data.response.user_id);
                 }
             });

@@ -20,6 +20,10 @@
     font-style: normal;
 }
 
+html, body {
+    overflow-x: hidden;
+}
+
 body {
     background: #111;
     font-family: 'Open Sans', sans-serif;
